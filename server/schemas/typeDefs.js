@@ -33,6 +33,10 @@ input SaveBookInput {
     link: String
     title: String
 }
+type Auth {
+    token: ID!
+    user: User
+}
 `
 
 // Export typeDefs
