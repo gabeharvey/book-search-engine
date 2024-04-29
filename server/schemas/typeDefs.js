@@ -21,7 +21,7 @@ type Book {
     bookId: String!
     authors: [String]
     description: String
-    title: String
+    title: String!
     image: String
     link: String
 }
@@ -31,7 +31,7 @@ input SaveBookInput {
     bookId: String!
     image: String
     link: String
-    title: String
+    title: String!
 }
 type Auth {
     token: ID!
