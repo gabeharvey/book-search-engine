@@ -1,6 +1,5 @@
 // Required Imports for Application
 import React from 'react';
-import auth from './utils/auth';
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom';
 import {ApolloClient, ApolloProvider, createHttpLink, InMemoryCache} from '@apollo/client';
 import SearchBooks from './pages/SearchBooks';
@@ -28,13 +27,22 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+// Overall Structure of Application
 function App() {
   return (
-    <>
-      <Navbar />
-      <Outlet />
-    </>
+    <ApolloProvider client={client}>
+      <Router>
+        <>
+          <Navbar />
+          <Switch>
+            <Route exact path='/' component={SearchBooks}/>
+            <Route exact path='/saved' component={SavedBooks}/>
+            <Route render={() => <h1 className='display-3'>Incorrect Page</h1>}/>
+          </Switch>
+        </>
+      </Router>
+    </ApolloProvider>
   );
-}
+};
 
 export default App;
