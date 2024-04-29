@@ -31,20 +31,12 @@ const LoginForm = () => {
       event.preventDefault();
       event.stopPropagation();
     }
-
+    // This Handles the Login Form Submission and Throws Error if Login Unsuccessful
     try {
-      const response = await loginUser(userFormData);
-
-      if (!response.ok) {
-        throw new Error('something went wrong!');
-      }
-
-      const { token, user } = await response.json();
-      console.log(user);
-      Auth.login(token);
-    } catch (err) {
-      console.error(err);
-      setShowAlert(true);
+      const {data} = await loginUser({variables: {...userFormData},});
+      Auth.login(data.login.token);
+    } catch(e) {
+      console.error(e);
     }
 
     setUserFormData({
