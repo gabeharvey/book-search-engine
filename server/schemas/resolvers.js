@@ -30,11 +30,11 @@ const resolvers = {
             return {token, user};
         },
         // This Function Allows User to Save Book
-        saveBook: async(parent, {input}, context) => {
+        saveBook: async(parent, {book}, context) => {
             if(!context.user) {
                 throw new AuthenticationError('User Must Log In to Perform Function');
             }
-            const updatedUser = await User.findByIdAndUpdate(context.user._id, {$addToSet: {savedBooks: input}}, {new: true, runValidators: true});
+            const updatedUser = await User.findByIdAndUpdate(context.user._id, {$addToSet: {savedBooks: book}}, {new: true, runValidators: true});
             return updatedUser;
         },
         // This Function Allows User to Remove Book
